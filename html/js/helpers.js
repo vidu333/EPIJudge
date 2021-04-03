@@ -131,5 +131,7 @@ function translateProblemMappings(data) {
         }
     }
 
-    return chapters
+    return { chapters,
+        summary: chapters.reduce((pv, cv) => ({python: pv.python + cv.progress.python, total: pv.total + cv.progress.total}), {python: 0, total: 0})
+        }
 }

@@ -5,7 +5,7 @@
 // [ ] links
 const EPI_DATA = translateProblemMappings(problem_mapping);
 
-const ALL_LANGUAGES = ['cpp', 'java', 'python'];
+const ALL_LANGUAGES = ['python'];
 
 Vue.component('donut', {
     props: ['x', 'size', 'width', 'rad', 'lineWidth', 'font'],
@@ -128,9 +128,11 @@ Vue.component('chapter-card', {
               <h2 class="mdl-card__title-text">{{chapter.name}}</h2>
             </div>
             <div class="mdl-card__supporting-text">
-              <chapter-plot v-for="l in this.$root.langs" 
+              <div style="text-align: center">  
+                <chapter-plot v-for="l in this.$root.langs" 
                       :lang=l :data=chapter.progress :extended=true>
-              </chapter-plot>
+                </chapter-plot>
+              </div>
             </div>
             <div class="mdl-card__actions mdl-card--border">
               <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" 
@@ -195,7 +197,7 @@ const epi = new Vue({
             chapters: EPI_DATA,
             selected_chapter: null,
             all_langs: ALL_LANGUAGES,
-            langs_enabled: {"cpp": true, "java": true, "python": true},
+            langs_enabled: {"cpp": false, "java": false, "python": true},
             langs_displayname: {"cpp": "C++", "java": "Java", "python": "Python"}
         }
     },
