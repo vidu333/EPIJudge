@@ -3,16 +3,32 @@ from typing import List
 
 from test_framework import generic_test
 from test_framework.test_utils import enable_executor_hook
+WHITE, GRAY, BLACK = range(3)
 
 
 class GraphVertex:
     def __init__(self) -> None:
         self.edges: List['GraphVertex'] = []
-
+        self.color = WHITE
 
 def is_deadlocked(graph: List[GraphVertex]) -> bool:
-    # TODO - you fill in here.
-    return True
+
+    def dfs_traversal(node):
+        if node.color == GRAY:
+            return True
+        if node.color == WHITE:
+            node.color = GRAY
+            if node.edges:
+                for n in node.edges:
+                    if dfs_traversal(n):
+                        return True
+        node.color = BLACK
+        return False
+
+    for node in graph:
+        if dfs_traversal(node):
+            return True
+    return False
 
 
 @enable_executor_hook

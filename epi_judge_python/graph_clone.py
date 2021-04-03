@@ -9,11 +9,26 @@ class GraphVertex:
     def __init__(self, label: int) -> None:
         self.label = label
         self.edges: List['GraphVertex'] = []
+    
+    def print(self):
+        print("Node: {} ".format(self.label))
+        print("Edges: {} ".format([e.label for e in self.edges]))
 
 
 def clone_graph(graph: GraphVertex) -> GraphVertex:
-    # TODO - you fill in here.
-    return GraphVertex(0)
+    if graph is None:
+        return None
+    clone = {}
+    queue = collections.deque([(None, graph)])
+    while queue:
+        parent, node = queue.popleft()
+        if node not in clone:
+            clone[node] = GraphVertex(node.label)
+            for n in node.edges:
+                queue.append((clone[node],n))
+        if parent:
+            parent.edges.append(clone[node])
+    return clone[graph]
 
 
 def copy_labels(edges):
